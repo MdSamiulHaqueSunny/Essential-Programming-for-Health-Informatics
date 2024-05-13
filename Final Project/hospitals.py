@@ -7,26 +7,21 @@ class Hospital:
     def __init__(self):
         # Constructor: Initializes a new Hospital object with an empty dictionary to store patients.
         self.patients = {}  # A dictionary to store Patient objects, with patient IDs as keys.
-
     def add_patient(self, patient_id):
         # Adds a new Patient object to the hospital's patient dictionary if the patient ID is not already present.
         # Also prompts the user for visit_time and generates a unique visit_ID.
         if patient_id not in self.patients:
         # Prompt for visit time
             visit_time = input("Enter Visit Time (YYYY-MM-DD HH:MM): ").strip()
-        
         # Generate a unique visit_id using uuid
             visit_id = str(uuid.uuid4())
-        
         # Create a new Patient object and a new Visit object with the generated visit_id and prompted visit_time
             new_patient = Patient(patient_id)
             new_visit = Visit(visit_id, visit_time, visit_department=None, gender=None, 
                           race=None, age=None, ethnicity=None, insurance=None, 
                           zip_code=None, chief_complaint=None, note=None)
-        
         # Add the visit to the patient's visits
             new_patient.add_visit(new_visit)
-        
         # Store the new Patient object in the hospital's dictionary
             self.patients[patient_id] = new_patient
             print(f"New patient with ID {patient_id} added with visit ID {visit_id} at {visit_time}.")
@@ -44,7 +39,6 @@ class Hospital:
                           zip_code=None, chief_complaint=None, note=None)
             existing_patient.add_visit(new_visit)
             print(f"Added new visit for existing patient with ID {patient_id} and visit ID {visit_id} at {visit_time}.")        
-    
     def remove_patient(self, patient_id):
         # Removes a Patient object from the hospital's patient dictionary based on the patient ID.
         # Outputs a message indicating whether the patient was removed or if the patient ID does not exist.
@@ -53,7 +47,6 @@ class Hospital:
             print(f"Patient with ID {patient_id} has been removed.")
         else:
             print("Patient ID does not exist.")
-    
     def retrieve_patient(self, patient_id):
         # Retrieves and prints information about a specific patient based on the patient ID.
         # Outputs patient information or a message if the patient ID does not exist.
@@ -62,7 +55,6 @@ class Hospital:
             print("Patient Information:", patient_info)
         else:
             print("Patient ID does not exist.")
-    
     def count_visits(self, date):
         # Counts and prints the number of visits to the hospital on a specific date.
         count = sum(1 for patient in self.patients.values() for visit in patient.visits if visit.visit_time == date)
